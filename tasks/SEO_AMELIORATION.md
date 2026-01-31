@@ -59,10 +59,10 @@
 
 ## 6. Performance (Core Web Vitals)
 
-- [ ] **Images** : OptimizedImage déjà utilisé, vérifier format WebP/AVIF et lazy loading
-- [ ] **LCP** : preload des images critiques, polices si besoin
-- [ ] **CLS** : dimensions explicites sur les images
-- [ ] **Compression** : `compressHTML: true` déjà activé
+- [x] **Images** : OptimizedImage déjà utilisé, vérifier format WebP/AVIF et lazy loading
+- [x] **LCP** : preload des images critiques, polices si besoin
+- [x] **CLS** : dimensions explicites sur les images
+- [x] **Compression** : `compressHTML: true` déjà activé
 
 ---
 
