@@ -1,0 +1,106 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "news": "Actualités",
+    "events": "Événements",
+    "federation": "La Fédération",
+    "language": "Langue"
+  },
+  "hero": {
+    "title": "Fédération Malienne de Taekwondo",
+    "subtitle": "Promouvoir et développer le Taekwondo sur tout le territoire malien",
+    "primaryAction": "Voir les actualités",
+    "secondaryAction": "Découvrir les événements"
+  },
+  "stats": {
+    "clubs": "Clubs affiliés",
+    "practitioners": "Pratiquants licenciés",
+    "blackbelts": "Ceintures noires",
+    "regions": "Régions couvertes"
+  },
+  "events": {
+    "title": "Prochains Événements",
+    "pageSubtitle": "Découvrez tous nos événements : compétitions, formations et passages de grades",
+    "upcoming": "À venir",
+    "ongoing": "En cours",
+    "completed": "Terminé",
+    "readMore": "En savoir plus",
+    "noEvents": "Aucun événement disponible",
+    "noEventsOngoing": "Aucun événement en cours pour le moment.",
+    "backToEvents": "← Retour aux événements",
+    "date": "Date",
+    "location": "Lieu",
+    "capacity": "Capacité",
+    "price": "Tarif",
+    "type": {
+      "competition": "Compétition",
+      "formation": "Formation",
+      "passage-grades": "Passage de grades",
+      "stage": "Stage",
+      "conference": "Conférence",
+      "autre": "Autre"
+    }
+  },
+  "news": {
+    "title": "Actualités",
+    "pageSubtitle": "Restez informés des dernières nouvelles du Taekwondo malien",
+    "emptyTitle": "Pas d'actualités",
+    "emptyDescription": "Aucune actualité n'est disponible pour le moment. Revenez bientôt pour découvrir les dernières nouvelles du Taekwondo malien.",
+    "readMore": "Lire la suite",
+    "publishedOn": "Publié le",
+    "noNews": "Aucune actualité disponible",
+    "backToNews": "← Retour aux actualités"
+  },
+  "footer": {
+    "copyright": "Tous droits réservés",
+    "copyrightFull": "© 2026 Fédération Malienne de Taekwondo. Tous droits réservés.",
+    "contact": "Contact",
+    "about": "À propos",
+    "location": "Localisation",
+    "quickLinks": "Liens Rapides",
+    "info": "Informations",
+    "hours": "Lun-Ven: 9h-17h",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation",
+    "description": "Fédération Malienne de Taekwondo - Promouvoir et développer le Taekwondo sur tout le territoire malien."
+  },
+  "share": {
+    "title": "Partager",
+    "facebook": "Partager sur Facebook",
+    "twitter": "Partager sur Twitter",
+    "linkedin": "Partager sur LinkedIn",
+    "whatsapp": "Partager sur WhatsApp"
+  },
+  "pagination": {
+    "previous": "Précédent",
+    "next": "Suivant",
+    "page": "Page",
+    "of": "sur",
+    "article": "article",
+    "articles": "articles"
+  },
+  "federation": {
+    "pageTitle": "La Fédération Malienne de Taekwondo",
+    "pageSubtitle": "Découvrez notre histoire, notre mission, nos valeurs et nos documents officiels",
+    "tabMission": "Notre Mission",
+    "tabBureau": "Bureau Fédéral",
+    "tabDocuments": "Documents",
+    "historyTitle": "Notre Histoire",
+    "missionTitle": "Notre Mission et Nos Valeurs",
+    "bureauTitle": "Bureau Fédéral",
+    "bureauSubtitle": "Découvrez l'équipe dirigeante de la Fédération Malienne de Taekwondo",
+    "president": "Président",
+    "rulesTitle": "Règles",
+    "rulesSubtitle": "Consultez les statuts de la FEMAT et les règles officielles du Taekwondo",
+    "contactSG": "Pour contacter le Secrétaire Général :",
+    "rulesFooter": "Les règles sont régulièrement mises à jour. Pour toute question, contactez-nous à"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "noResults": "Aucun résultat",
+    "seeAll": "Voir tout",
+    "close": "Fermer",
+    "menu": "Menu"
+  }
+}

@@ -1,0 +1,198 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import FederationTabs from '../../components/ui/tabs/FederationTabs.vue';
+import TeamMemberCard from '../../components/cards/team/TeamMemberCard.vue';
+import TableOfContents from '../../components/TableOfContents.astro';
+import { getEntry } from 'astro:content';
+import { useTranslations } from '../../lib/i18n/translations';
+
+const t = useTranslations('ru');
+
+// FEMAT official data
+const bureauFederal = [
+  {
+    nom: "Д-р Алиун Бадара ТРАОРЕ",
+    poste: "Президент",
+    region: "Бамако",
+    experience: "8-й Дан"
+  },
+  {
+    nom: "Генеральный секретарь",
+    poste: "Генеральный секретарь",
+    region: "Бамако",
+    experience: "Федеральный эксперт"
+  }
+];
+
+// Load MDX content from collection
+const fematRules = await getEntry('regles', 'ru/femat');
+if (!fematRules) {
+  throw new Error('Файл regles/ru/femat.mdx не найден');
+}
+const { Content, headings } = await fematRules.render();
+---
+
+<Layout
+  title="Федерация - FEMAT"
+  description="Узнайте историю, миссию и ценности Малийской федерации тхэквондо. Официальный устав, федеральное бюро и нормативные документы."
+  lang="ru"
+>
+  <div class="container mx-auto px-4 py-8">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4">{t('federation.pageTitle')}</h1>
+      <p class="text-xl text-muted-foreground">
+        {t('federation.pageSubtitle')}
+      </p>
+    </div>
+
+    <FederationTabs client:load lang="ru">
+      <div slot="mission-content">
+        <div class="bg-green-light rounded-lg p-8 mb-8">
+          <h2 class="text-3xl font-bold mb-6 text-center">{t('federation.historyTitle')}</h2>
+          <div class="max-w-4xl mx-auto text-center space-y-4">
+            <p class="text-lg">
+              Малийская федерация тхэквондо (FEMAT) была создана для продвижения и развития практики тхэквондо в Мали.
+            </p>
+            <p class="text-lg">
+              С момента основания федерация неустанно работает над предоставлением малийским практикам лучших возможностей для прогресса и соревнований.
+            </p>
+            <p class="text-lg">
+              FEMAT регулярно организует национальные и международные соревнования, семинары для инструкторов и мероприятия, объединяющие сообщество малийского тхэквондо.
+            </p>
+            <p class="text-lg">
+              Наша федерация признана за приверженность спортивному совершенству и основным ценностям тхэквондо.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-yellow-light rounded-lg p-8 mb-8">
+          <h2 class="text-3xl font-bold mb-6 text-center">{t('federation.missionTitle')}</h2>
+          <div class="max-w-4xl mx-auto text-center space-y-4 mb-8">
+            <p class="text-lg">
+              FEMAT стремится поддерживать высочайшие стандарты спортивного совершенства, сохраняя при этом традиционные ценности тхэквондо.
+            </p>
+            <p class="text-lg font-medium">
+              Продвигать и развивать практику тхэквондо в Мали, предлагая всем практикам, независимо от уровня, средства для прогресса, развития и участия в соревнованиях высокого уровня.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle class="text-center">🙏 Уважение</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p class="text-center text-muted-foreground">Уважение к себе, другим и традициям тхэквондо</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle class="text-center">⚡ Дисциплина</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p class="text-center text-muted-foreground">Преданность и строгость в практике и тренировках</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle class="text-center">🏆 Совершенство</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p class="text-center text-muted-foreground">Постоянное стремление к улучшению и самопреодолению</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle class="text-center">🤝 Согласие</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p class="text-center text-muted-foreground">Командный дух и солидарность в сообществе</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        <div class="bg-red-light rounded-lg p-8">
+          <h2 class="text-3xl font-bold mb-6 text-center">Тхэквондо</h2>
+          <div class="max-w-4xl mx-auto text-center space-y-4">
+            <p class="text-lg">
+              Корейское боевое искусство, сочетающее боевые техники, самооборону, физические упражнения и умственное развитие.
+            </p>
+            <p class="text-lg">
+              Тхэквондо буквально означает «путь ноги и кулака». Это олимпийский вид спорта, сочетающий боевые техники, самооборону, физические упражнения и умственное развитие.
+            </p>
+            <p class="text-lg">
+              Практикуемый миллионами по всему миру, тхэквондо развивает силу, гибкость, координацию и уверенность в себе. Он также прививает важные ценности, такие как уважение, дисциплина и настойчивость.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div slot="bureau-content">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-bold mb-4">{t('federation.bureauTitle')}</h2>
+          <p class="text-lg text-muted-foreground">
+            {t('federation.bureauSubtitle')}
+          </p>
+        </div>
+
+        <div class="bg-background rounded-lg p-6 mb-8 border border-border">
+          <h3 class="text-xl font-semibold mb-4">{t('federation.president')}</h3>
+          <div class="grid gap-6 md:grid-cols-2">
+            {bureauFederal.map((membre) => (
+              <TeamMemberCard
+                nom={membre.nom}
+                poste={membre.poste}
+                region={membre.region}
+                experience={membre.experience}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div class="text-center">
+          <p class="text-muted-foreground mb-4">
+            {t('federation.contactSG')} <strong>77551985</strong>
+          </p>
+          <p class="text-muted-foreground">
+            Email: <strong>femat3@yahoo.fr</strong>
+          </p>
+        </div>
+      </div>
+
+      <div slot="documents-content">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-bold mb-4">{t('federation.rulesTitle')}</h2>
+          <p class="text-lg text-muted-foreground">
+            {t('federation.rulesSubtitle')}
+          </p>
+        </div>
+
+        <div class="bg-background rounded-lg p-6 mb-6 border border-border">
+          <h3 class="text-lg font-semibold mb-4">📋 Устав и правила</h3>
+          <p class="text-muted-foreground mb-4">
+            {t('federation.rulesSubtitle')}
+          </p>
+        </div>
+
+        <div class="flex gap-8">
+          <aside class="hidden lg:block">
+            <TableOfContents headings={headings} />
+          </aside>
+
+          <div class="flex-1 prose prose-lg max-w-none">
+            <Content />
+          </div>
+        </div>
+
+        <div class="mt-8 text-center">
+          <p class="text-muted-foreground">
+            {t('federation.rulesFooter')} <strong>femat3@yahoo.fr</strong>
+          </p>
+        </div>
+      </div>
+    </FederationTabs>
+
+  </div>
+</Layout>

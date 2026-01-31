@@ -1,0 +1,51 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import PaginatedArticles from '../../components/PaginatedArticles.vue';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { useTranslations } from '../../lib/i18n/translations';
+
+const t = useTranslations('en');
+
+const actualites = await getCollection('actualites', ({ data }) => data.lang === 'en');
+const articlesTries = actualites.sort((a, b) =>
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<Layout
+  title="News - FEMAT"
+  description="Discover all the news and updates from the Malian Taekwondo Federation"
+  lang="en"
+>
+  <div class="container mx-auto px-4 py-8">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4">{t('news.title')}</h1>
+      <p class="text-xl text-muted-foreground">
+        {t('news.pageSubtitle')}
+      </p>
+    </div>
+
+    <!-- Articles list -->
+    <PaginatedArticles
+      client:load
+      items={articlesTries}
+      itemsPerPage={6}
+      lang="en"
+      read-more-text={t('news.readMore')}
+      pagination-page-label={t('pagination.page')}
+      pagination-of-label={t('pagination.of')}
+      pagination-article-label={t('pagination.article')}
+      pagination-articles-label={t('pagination.articles')}
+    />
+
+    {articlesTries.length === 0 && (
+      <Alert class="max-w-md mx-auto">
+        <AlertTitle>{t('news.emptyTitle')}</AlertTitle>
+        <AlertDescription>
+          {t('news.emptyDescription')}
+        </AlertDescription>
+      </Alert>
+    )}
+  </div>
+</Layout>

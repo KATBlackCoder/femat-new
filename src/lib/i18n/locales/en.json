@@ -1,0 +1,106 @@
+{
+  "nav": {
+    "home": "Home",
+    "news": "News",
+    "events": "Events",
+    "federation": "Federation",
+    "language": "Language"
+  },
+  "hero": {
+    "title": "Malian Taekwondo Federation",
+    "subtitle": "Promoting and developing Taekwondo throughout Mali",
+    "primaryAction": "View news",
+    "secondaryAction": "Discover events"
+  },
+  "stats": {
+    "clubs": "Affiliated clubs",
+    "practitioners": "Licensed practitioners",
+    "blackbelts": "Black belts",
+    "regions": "Regions covered"
+  },
+  "events": {
+    "title": "Upcoming Events",
+    "pageSubtitle": "Discover all our events: competitions, training and belt tests",
+    "upcoming": "Upcoming",
+    "ongoing": "Ongoing",
+    "completed": "Completed",
+    "readMore": "Learn more",
+    "noEvents": "No events available",
+    "noEventsOngoing": "No events in progress at the moment.",
+    "backToEvents": "← Back to events",
+    "date": "Date",
+    "location": "Location",
+    "capacity": "Capacity",
+    "price": "Price",
+    "type": {
+      "competition": "Competition",
+      "formation": "Training",
+      "passage-grades": "Belt test",
+      "stage": "Seminar",
+      "conference": "Conference",
+      "autre": "Other"
+    }
+  },
+  "news": {
+    "title": "News",
+    "pageSubtitle": "Stay informed about the latest news from Malian Taekwondo",
+    "emptyTitle": "No news",
+    "emptyDescription": "No news is currently available. Come back soon to discover the latest news from Malian Taekwondo.",
+    "readMore": "Read more",
+    "publishedOn": "Published on",
+    "noNews": "No news available",
+    "backToNews": "← Back to news"
+  },
+  "footer": {
+    "copyright": "All rights reserved",
+    "copyrightFull": "© 2026 Malian Taekwondo Federation. All rights reserved.",
+    "contact": "Contact",
+    "about": "About",
+    "location": "Location",
+    "quickLinks": "Quick Links",
+    "info": "Information",
+    "hours": "Mon-Fri: 9am-5pm",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "description": "Malian Taekwondo Federation - Promoting and developing Taekwondo throughout Mali."
+  },
+  "share": {
+    "title": "Share",
+    "facebook": "Share on Facebook",
+    "twitter": "Share on Twitter",
+    "linkedin": "Share on LinkedIn",
+    "whatsapp": "Share on WhatsApp"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page",
+    "of": "of",
+    "article": "article",
+    "articles": "articles"
+  },
+  "federation": {
+    "pageTitle": "Malian Taekwondo Federation",
+    "pageSubtitle": "Discover our history, mission, values and official documents",
+    "tabMission": "Our Mission",
+    "tabBureau": "Federal Bureau",
+    "tabDocuments": "Documents",
+    "historyTitle": "Our History",
+    "missionTitle": "Our Mission and Values",
+    "bureauTitle": "Federal Bureau",
+    "bureauSubtitle": "Meet the leadership team of the Malian Taekwondo Federation",
+    "president": "President",
+    "rulesTitle": "Rules",
+    "rulesSubtitle": "Consult FEMAT statutes and official Taekwondo rules",
+    "contactSG": "To contact the Secretary General:",
+    "rulesFooter": "Rules are regularly updated. For any questions, contact us at"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "noResults": "No results",
+    "seeAll": "See all",
+    "close": "Close",
+    "menu": "Menu"
+  }
+}

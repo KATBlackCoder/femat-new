@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import EventStatsSection from '../../components/sections/stats/EventStatsSection.vue';
+import EventsTabs from '../../components/EventsTabs.vue';
+import { useTranslations } from '../../lib/i18n/translations';
+
+const t = useTranslations('ru');
+
+const evenements = await getCollection('evenements', ({ data }) => data.lang === 'ru');
+
+// Сортировка по статусу и дате
+const evenementsTries = evenements.sort((a, b) => {
+  const statusOrder = { 'upcoming': 0, 'ongoing': 1, 'completed': 2 };
+  const statusDiff = statusOrder[a.data.status] - statusOrder[b.data.status];
+  if (statusDiff !== 0) return statusDiff;
+  return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+});
+
+// Группировка по статусу
+const evenementsGrouped = {
+  upcoming: evenementsTries.filter(e => e.data.status === 'upcoming'),
+  ongoing: evenementsTries.filter(e => e.data.status === 'ongoing'),
+  completed: evenementsTries.filter(e => e.data.status === 'completed')
+};
+---
+
+<Layout
+  title="События - FEMAT"
+  description="Откройте для себя все события, организованные Малийской федерацией тхэквондо: соревнования, тренировки, экзамены на пояса и семинары"
+  lang="ru"
+>
+  <div class="container mx-auto px-4 py-8">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4">{t('events.title')}</h1>
+      <p class="text-xl text-muted-foreground">
+        Откройте для себя все наши события: соревнования, тренировки и экзамены на пояса
+      </p>
+    </div>
+
+    <!-- Быстрая статистика -->
+    <EventStatsSection client:load
+      upcomingCount={evenementsGrouped.upcoming.length}
+      ongoingCount={evenementsGrouped.ongoing.length}
+      completedCount={evenementsGrouped.completed.length}
+    />
+
+    <!-- Вкладки с пагинацией для каждого типа -->
+    <EventsTabs client:load
+      upcomingItems={evenementsGrouped.upcoming}
+      ongoingItems={evenementsGrouped.ongoing}
+      completedItems={evenementsGrouped.completed}
+      lang="ru"
+    />
+  </div>
+</Layout>

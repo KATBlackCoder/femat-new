@@ -1,0 +1,32 @@
+---
+import { Image } from 'astro:assets';
+
+/**
+ * Single image component for both local (public/ or src/) and remote URLs.
+ * Astro's <Image> accepts string paths and full URLs; it optimizes local src/
+ * and authorized remote images, and still enforces dimensions for public/
+ * and unauthorized remote to avoid CLS (see docs.astro.build/guides/images).
+ */
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+}
+
+const { src, alt, width = 800, height, class: className, loading = 'lazy' } = Astro.props;
+
+const calculatedHeight = height ?? Math.round(width * 0.75);
+---
+
+<Image
+  src={src}
+  alt={alt}
+  width={width}
+  height={calculatedHeight}
+  class={className}
+  loading={loading}
+  format="webp"
+/>

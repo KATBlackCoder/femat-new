@@ -1,0 +1,60 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import EventStatsSection from '../../components/sections/stats/EventStatsSection.vue';
+import EventsTabs from '../../components/EventsTabs.vue';
+import { useTranslations } from '../../lib/i18n/translations';
+
+const t = useTranslations('fr');
+
+const evenements = await getCollection('evenements', ({ data }) => data.lang === 'fr');
+
+// Trier par statut et date
+const evenementsTries = evenements.sort((a, b) => {
+  // D'abord par statut (upcoming > ongoing > completed)
+  const statusOrder = { 'upcoming': 0, 'ongoing': 1, 'completed': 2 };
+  const statusDiff = statusOrder[a.data.status] - statusOrder[b.data.status];
+  if (statusDiff !== 0) return statusDiff;
+
+  // Puis par date (plus récent en premier pour les terminés, plus proche pour les à venir)
+  return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+});
+
+// Grouper par statut
+const evenementsGrouped = {
+  upcoming: evenementsTries.filter(e => e.data.status === 'upcoming'),
+  ongoing: evenementsTries.filter(e => e.data.status === 'ongoing'),
+  completed: evenementsTries.filter(e => e.data.status === 'completed')
+};
+
+---
+
+<Layout
+  title="Événements - FEMAT"
+  description="Découvrez tous les événements organisés par la Fédération Malienne de Taekwondo : compétitions, formations, passages de grades et stages"
+  lang="fr"
+>
+  <div class="container mx-auto px-4 py-8">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4">{t('events.title')}</h1>
+      <p class="text-xl text-muted-foreground">
+        {t('events.pageSubtitle')}
+      </p>
+    </div>
+
+    <!-- Quick stats -->
+    <EventStatsSection client:load
+      upcomingCount={evenementsGrouped.upcoming.length}
+      ongoingCount={evenementsGrouped.ongoing.length}
+      completedCount={evenementsGrouped.completed.length}
+    />
+
+    <!-- Tabs with pagination for each type -->
+    <EventsTabs client:load
+      upcomingItems={evenementsGrouped.upcoming}
+      ongoingItems={evenementsGrouped.ongoing}
+      completedItems={evenementsGrouped.completed}
+      lang="fr"
+    />
+  </div>
+</Layout>

@@ -1,14 +1,134 @@
+---
+import Navbar from '../components/Navbar.vue';
+import Footer from '../components/Footer.vue';
+import OptimizedImage from '../components/OptimizedImage.astro';
+import { type Language, getLangFromUrl } from '../lib/i18n/translations';
+import "../styles/global.css";
+
+export interface Props {
+	title?: string;
+	description?: string;
+	image?: string;
+	lang?: Language;
+	/** Extra JSON-LD schemas (Article, Event, BreadcrumbList, etc.) */
+	jsonLd?: object | object[];
+}
+
+const { 
+	title = "Fédération Malienne de Taekwondo - FEMAT", 
+	description = "Site officiel de la Fédération Malienne de Taekwondo. Découvrez les actualités, compétitions et clubs de Taekwondo au Mali.",
+	image,
+	jsonLd,
+	lang = 'fr'
+} = Astro.props;
+
+const currentLang = lang || getLangFromUrl(Astro.url);
+const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
+const canonicalUrl = `${site}${Astro.url.pathname}`;
+const imagePath = image && !image.startsWith('http') ? (image.startsWith('/') ? image : `/${image}`) : '';
+const ogImage = image?.startsWith('http') ? image : image ? `${site}${imagePath}` : `${site}/logo_femat.webp`;
+
+const organizationSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'Organization',
+	name: 'Fédération Malienne de Taekwondo',
+	alternateName: 'FEMAT',
+	url: site,
+	logo: `${site}/logo_femat.webp`,
+};
+
+const websiteSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'WebSite',
+	name: 'FEMAT - Fédération Malienne de Taekwondo',
+	url: site,
+	publisher: { '@id': `${site}/#organization` },
+};
+
+const extraSchemas = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
+---
+
+<script is:inline>
+    (function() {
+        const getThemePreference = () => {
+            if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+                return localStorage.getItem('theme');
+            }
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        };
+        const theme = getThemePreference();
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    })();
+</script>
+
 <!doctype html>
-<html lang="en">
-	<head>
+<html lang={currentLang}>
+  <head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="/logo_femat.webp" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+
+		<title>{title}</title>
+		<meta name="description" content={description} />
+
+		<link rel="canonical" href={canonicalUrl} />
+		<link rel="sitemap" href="/sitemap-index.xml" type="application/xml" />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:locale" content={currentLang === 'en' ? 'en_US' : currentLang === 'ru' ? 'ru_RU' : 'fr_FR'} />
+		{currentLang !== 'fr' && <meta property="og:locale:alternate" content="fr_FR" />}
+		{currentLang !== 'en' && <meta property="og:locale:alternate" content="en_US" />}
+		{currentLang !== 'ru' && <meta property="og:locale:alternate" content="ru_RU" />}
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={canonicalUrl} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={ogImage} />
+
+		<!-- Alternate language versions (x-default = French) -->
+		<link rel="alternate" hreflang="x-default" href={`${site}/fr${Astro.url.pathname.replace(/^\/(fr|en|ru)/, '')}`} />
+		<link rel="alternate" hreflang="fr" href={`${site}/fr${Astro.url.pathname.replace(/^\/(fr|en|ru)/, '')}`} />
+		<link rel="alternate" hreflang="en" href={`${site}/en${Astro.url.pathname.replace(/^\/(fr|en|ru)/, '')}`} />
+		<link rel="alternate" hreflang="ru" href={`${site}/ru${Astro.url.pathname.replace(/^\/(fr|en|ru)/, '')}`} />
+
+		<!-- Performance optimizations -->
+		<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+
+		<!-- Preload critical resources -->
+		<link rel="preload" href="/favicon.svg" as="image" type="image/svg+xml" />
+
+		<!-- Resource hints for external services (WhatsApp, etc.) -->
+		<link rel="preconnect" href="https://wa.me" />
+		<link rel="dns-prefetch" href="https://wa.me" />
+
+		<!-- JSON-LD: Organisation + WebSite -->
+		<script type="application/ld+json" set:html={JSON.stringify({ ...organizationSchema, '@id': `${site}/#organization` })} />
+		<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+		{extraSchemas.map((schema) => (
+			<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+		))}
 	</head>
-	<body>
-		<slot />
+	<body class="font-sans bg-background text-foreground min-h-screen">
+		<Navbar client:load initialPath={Astro.url.pathname} />
+		<main class="bg-background">
+			<slot />
+		</main>
+		<Footer client:load initialPath={Astro.url.pathname}>
+			<OptimizedImage slot="logo" src="/logo_femat.webp" alt="FEMAT Logo" width={40} height={40} class="w-8 h-8 object-contain" />
+		</Footer>
 	</body>
 </html>
 

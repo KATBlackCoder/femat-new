@@ -1,0 +1,34 @@
+---
+interface Props {
+  headings: Array<{
+    depth: number;
+    slug: string;
+    text: string;
+  }>;
+}
+
+const { headings } = Astro.props;
+
+// Filtrer les headings de niveau 2 et 3 pour la table des matières
+const tocHeadings = headings.filter(h => h.depth <= 3);
+---
+
+{tocHeadings.length > 0 && (
+  <nav class="sticky top-8 w-64 max-h-[calc(100vh-4rem)] overflow-y-auto pb-4 pr-4">
+    <h3 class="text-sm font-semibold text-foreground mb-4">Table des matières</h3>
+    <ul class="space-y-1 text-sm">
+      {tocHeadings.map((heading) => (
+        <li>
+          <a
+            href={`#${heading.slug}`}
+            class={`block py-1.5 px-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors ${
+              heading.depth === 2 ? 'font-medium' : heading.depth === 3 ? 'pl-6 text-sm' : 'pl-10 text-xs'
+            }`}
+          >
+            {heading.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}

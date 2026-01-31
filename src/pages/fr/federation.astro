@@ -1,0 +1,229 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import FederationTabs from '../../components/ui/tabs/FederationTabs.vue';
+import TeamMemberCard from '../../components/cards/team/TeamMemberCard.vue';
+import TableOfContents from '../../components/TableOfContents.astro';
+import { getEntry } from 'astro:content';
+
+// Données officielles FEMAT
+const bureauFederal = [
+  {
+    nom: "Docteur Alioune Badara TRAORE",
+    poste: "Président",
+    region: "Bamako",
+    experience: "8ème Dan"
+  },
+  {
+    nom: "Secrétaire Général",
+    poste: "Secrétaire Général",
+    region: "Bamako",
+    experience: "Expert fédéral"
+  }
+];
+
+// Charger le contenu MDX depuis la collection
+const fematRules = await getEntry('regles', 'fr/femat');
+if (!fematRules) {
+  throw new Error('Fichier regles/fr/femat.mdx introuvable');
+}
+const { Content, headings } = await fematRules.render();
+---
+
+<Layout
+  title="La Fédération - FEMAT"
+  description="Découvrez l'histoire, la mission et les valeurs de la Fédération Malienne de Taekwondo. Statuts officiels, bureau fédéral et documents réglementaires."
+  lang="fr"
+>
+  <div class="container mx-auto px-4 py-8">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4">La Fédération Malienne de Taekwondo</h1>
+      <p class="text-xl text-muted-foreground">
+        Découvrez notre histoire, notre mission, nos valeurs et nos documents officiels
+      </p>
+    </div>
+
+    <!-- Contenu organisé en onglets -->
+    <FederationTabs client:load lang="fr">
+      <div slot="mission-content">
+        <!-- Histoire -->
+        <div class="bg-green-light rounded-lg p-8 mb-8">
+          <h2 class="text-3xl font-bold mb-6 text-center">Notre Histoire</h2>
+          <div class="max-w-4xl mx-auto text-center space-y-4">
+            <p class="text-lg">
+              La Fédération Malienne de Taekwondo (FEMAT) a été créée avec pour objectif de promouvoir
+              et développer la pratique du taekwondo au Mali.
+            </p>
+            <p class="text-lg">
+              Depuis sa fondation, la fédération œuvre sans relâche pour offrir aux pratiquants maliens
+              les meilleures opportunités de progression et de compétition.
+            </p>
+            <p class="text-lg">
+              La FEMAT organise régulièrement des compétitions nationales et internationales,
+              des stages de formation pour les instructeurs, et des événements qui rassemblent
+              la communauté du taekwondo malien.
+            </p>
+            <p class="text-lg">
+              Notre fédération est reconnue pour son engagement en faveur de l'excellence sportive
+              et des valeurs fondamentales du taekwondo.
+            </p>
+          </div>
+        </div>
+
+        <!-- Mission -->
+        <div class="bg-yellow-light rounded-lg p-8 mb-8">
+          <h2 class="text-3xl font-bold mb-6 text-center">Notre Mission et Nos Valeurs</h2>
+          <div class="max-w-4xl mx-auto text-center space-y-4 mb-8">
+            <p class="text-lg">
+              La FEMAT s'engage à maintenir les plus hauts standards d'excellence sportive tout en préservant
+              les valeurs traditionnelles du taekwondo.
+            </p>
+            <p class="text-lg font-medium">
+              Promouvoir et développer la pratique du taekwondo au Mali en offrant à tous les pratiquants,
+              quel que soit leur niveau, les moyens de progresser, de s'épanouir et de participer à des compétitions de haut niveau.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle class="text-center">🙏 Respect</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p class="text-center text-muted-foreground">
+                  Respect de soi, des autres et des traditions du taekwondo
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle class="text-center">⚡ Discipline</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p class="text-center text-muted-foreground">
+                  Engagement et rigueur dans la pratique et l'entraînement
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle class="text-center">🏆 Excellence</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p class="text-center text-muted-foreground">
+                  Recherche constante de l'amélioration et du dépassement de soi
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle class="text-center">🤝 Cohésion</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p class="text-center text-muted-foreground">
+                  Esprit d'équipe et solidarité au sein de la communauté
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        <!-- Le Taekwondo -->
+        <div class="bg-red-light rounded-lg p-8">
+          <h2 class="text-3xl font-bold mb-6 text-center">Le Taekwondo</h2>
+          <div class="max-w-4xl mx-auto text-center space-y-4">
+            <p class="text-lg">
+              Un art martial coréen qui combine techniques de combat, self-défense, exercices physiques et développement mental.
+            </p>
+            <p class="text-lg">
+              Le taekwondo est un art martial coréen qui signifie littéralement "la voie du pied et du poing".
+              C'est un sport olympique qui combine techniques de combat, self-défense, exercices physiques et développement mental.
+            </p>
+            <p class="text-lg">
+              Pratiqué par des millions de personnes dans le monde, le taekwondo développe la force, la flexibilité,
+              la coordination et la confiance en soi. Il enseigne également des valeurs importantes telles que le respect,
+              la discipline et la persévérance.
+            </p>
+            <p class="text-lg">
+              Au Mali, le taekwondo connaît un essor croissant grâce aux efforts de la FEMAT et de ses Dojang affiliés,
+              qui offrent des programmes adaptés à tous les âges et tous les niveaux.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div slot="bureau-content">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-bold mb-4">Bureau Fédéral</h2>
+          <p class="text-lg text-muted-foreground">
+            Découvrez l'équipe dirigeante de la Fédération Malienne de Taekwondo
+          </p>
+        </div>
+
+        <div class="bg-background rounded-lg p-6 mb-8 border border-border">
+          <h3 class="text-xl font-semibold mb-4">Président</h3>
+          <div class="grid gap-6 md:grid-cols-2">
+            {bureauFederal.map((membre) => (
+              <TeamMemberCard
+                nom={membre.nom}
+                poste={membre.poste}
+                region={membre.region}
+                experience={membre.experience}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div class="text-center">
+          <p class="text-muted-foreground mb-4">
+            Pour contacter le Secrétaire Général : <strong>77551985</strong>
+          </p>
+          <p class="text-muted-foreground">
+            Email : <strong>femat3@yahoo.fr</strong>
+          </p>
+        </div>
+      </div>
+
+      <div slot="documents-content">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-bold mb-4">Règles</h2>
+          <p class="text-lg text-muted-foreground">
+            Consultez les statuts de la FEMAT et les règles officielles du Taekwondo
+          </p>
+        </div>
+
+        <div class="bg-background rounded-lg p-6 mb-6 border border-border">
+          <h3 class="text-lg font-semibold mb-4">📋 Statuts et Règles</h3>
+          <p class="text-muted-foreground mb-4">
+            Consultez les statuts de la FEMAT et les règles officielles du Taekwondo.
+            Trouvez les réponses à vos questions dans notre FAQ.
+          </p>
+        </div>
+
+        <!-- Contenu avec table des matières -->
+        <div class="flex gap-8">
+          <!-- Table des matières -->
+          <aside class="hidden lg:block">
+            <TableOfContents headings={headings} />
+          </aside>
+
+          <!-- Contenu principal -->
+          <div class="flex-1 prose prose-lg max-w-none">
+            <Content />
+          </div>
+        </div>
+
+        <div class="mt-8 text-center">
+          <p class="text-muted-foreground">
+            Les règles sont régulièrement mises à jour. Pour toute question,
+            contactez-nous à <strong>femat3@yahoo.fr</strong>
+          </p>
+        </div>
+      </div>
+    </FederationTabs>
+
+  </div>
+</Layout>

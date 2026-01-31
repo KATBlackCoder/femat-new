@@ -1,0 +1,85 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+import HeroSection from '../../components/sections/hero/HeroSection.vue';
+import StatsSection from '../../components/sections/stats/StatsSection.vue';
+import EventCard from '../../components/cards/event/EventCard.vue';
+import { useTranslations } from '../../lib/i18n/translations';
+
+const t = useTranslations('fr');
+
+// Récupérer les événements en français
+const evenements = await getCollection('evenements', ({ data }) => data.lang === 'fr');
+const prochainsEvenements = evenements
+  .filter(event => event.data.status === 'upcoming' || event.data.status === 'ongoing')
+  .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime())
+  .slice(0, 3);
+
+// Fonction pour obtenir la couleur du statut
+const getStatusColor = (status: string) => {
+  switch (status) {
+    case 'upcoming': return 'secondary';
+    case 'ongoing': return 'default';
+    case 'completed': return 'outline';
+    default: return 'secondary';
+  }
+};
+
+// Fonction pour obtenir le texte du statut
+const getStatusText = (status: string) => {
+  switch (status) {
+    case 'upcoming': return t('events.upcoming');
+    case 'ongoing': return t('events.ongoing');
+    case 'completed': return t('events.completed');
+    default: return status;
+  }
+};
+
+const chiffresCles = [
+  { nombre: "50+", label: t('stats.clubs') },
+  { nombre: "2000+", label: t('stats.practitioners') },
+  { nombre: "150+", label: t('stats.blackbelts') },
+  { nombre: "15", label: t('stats.regions') }
+];
+---
+
+<Layout title="Fédération Malienne de Taekwondo - FEMAT" lang="fr">
+  <!-- Bannière d'accueil -->
+  <HeroSection
+    title={t('hero.title')}
+    subtitle={t('hero.subtitle')}
+    lang="fr"
+    primaryAction={t('hero.primaryAction')}
+    secondaryAction={t('hero.secondaryAction')}
+  />
+
+  <!-- Chiffres clés -->
+  <StatsSection stats={chiffresCles} />
+
+  <!-- Prochains événements -->
+  <section class="py-20 md:py-24 bg-background">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">{t('events.title')}</h2>
+      {prochainsEvenements.length > 0 ? (
+        <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+          {prochainsEvenements.map((event) => (
+            <EventCard
+              title={event.data.title}
+              date={event.data.date.toISOString().split('T')[0]}
+              location={event.data.location}
+              description={event.data.description}
+              status={event.data.status}
+              statusText={getStatusText(event.data.status)}
+              statusVariant={getStatusColor(event.data.status)}
+              href={`/fr/evenements/${event.id}`}
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="text-center text-muted-foreground text-lg py-12">{t('events.noEventsOngoing')}</p>
+      )}
+    </div>
+  </section>
+
+</Layout>

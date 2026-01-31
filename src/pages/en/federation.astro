@@ -1,0 +1,198 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import FederationTabs from '../../components/ui/tabs/FederationTabs.vue';
+import TeamMemberCard from '../../components/cards/team/TeamMemberCard.vue';
+import TableOfContents from '../../components/TableOfContents.astro';
+import { getEntry } from 'astro:content';
+import { useTranslations } from '../../lib/i18n/translations';
+
+const t = useTranslations('en');
+
+// FEMAT official data
+const bureauFederal = [
+  {
+    nom: "Dr. Alioune Badara TRAORE",
+    poste: "President",
+    region: "Bamako",
+    experience: "8th Dan"
+  },
+  {
+    nom: "Secretary General",
+    poste: "Secretary General",
+    region: "Bamako",
+    experience: "Federal expert"
+  }
+];
+
+// Load MDX content from collection
+const fematRules = await getEntry('regles', 'en/femat');
+if (!fematRules) {
+  throw new Error('regles/en/femat.mdx file not found');
+}
+const { Content, headings } = await fematRules.render();
+---
+
+<Layout
+  title="Federation - FEMAT"
+  description="Discover the history, mission and values of the Malian Taekwondo Federation. Official statutes, federal bureau and regulatory documents."
+  lang="en"
+>
+  <div class="container mx-auto px-4 py-8">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4">{t('federation.pageTitle')}</h1>
+      <p class="text-xl text-muted-foreground">
+        {t('federation.pageSubtitle')}
+      </p>
+    </div>
+
+    <FederationTabs client:load lang="en">
+      <div slot="mission-content">
+        <div class="bg-green-light rounded-lg p-8 mb-8">
+          <h2 class="text-3xl font-bold mb-6 text-center">{t('federation.historyTitle')}</h2>
+          <div class="max-w-4xl mx-auto text-center space-y-4">
+            <p class="text-lg">
+              The Malian Taekwondo Federation (FEMAT) was created to promote and develop Taekwondo practice in Mali.
+            </p>
+            <p class="text-lg">
+              Since its foundation, the federation has worked tirelessly to offer Malian practitioners the best opportunities for progression and competition.
+            </p>
+            <p class="text-lg">
+              FEMAT regularly organizes national and international competitions, instructor training seminars, and events that bring together the Malian Taekwondo community.
+            </p>
+            <p class="text-lg">
+              Our federation is recognized for its commitment to sporting excellence and the fundamental values of Taekwondo.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-yellow-light rounded-lg p-8 mb-8">
+          <h2 class="text-3xl font-bold mb-6 text-center">{t('federation.missionTitle')}</h2>
+          <div class="max-w-4xl mx-auto text-center space-y-4 mb-8">
+            <p class="text-lg">
+              FEMAT is committed to maintaining the highest standards of sporting excellence while preserving the traditional values of Taekwondo.
+            </p>
+            <p class="text-lg font-medium">
+              To promote and develop Taekwondo practice in Mali by offering all practitioners, regardless of level, the means to progress, flourish and participate in high-level competitions.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle class="text-center">🙏 Respect</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p class="text-center text-muted-foreground">Respect for oneself, others and Taekwondo traditions</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle class="text-center">⚡ Discipline</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p class="text-center text-muted-foreground">Commitment and rigor in practice and training</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle class="text-center">🏆 Excellence</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p class="text-center text-muted-foreground">Constant pursuit of improvement and self-transcendence</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle class="text-center">🤝 Cohesion</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p class="text-center text-muted-foreground">Team spirit and solidarity within the community</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        <div class="bg-red-light rounded-lg p-8">
+          <h2 class="text-3xl font-bold mb-6 text-center">Taekwondo</h2>
+          <div class="max-w-4xl mx-auto text-center space-y-4">
+            <p class="text-lg">
+              A Korean martial art combining combat techniques, self-defense, physical exercise and mental development.
+            </p>
+            <p class="text-lg">
+              Taekwondo literally means "the way of the foot and fist". It is an Olympic sport that combines combat techniques, self-defense, physical exercise and mental development.
+            </p>
+            <p class="text-lg">
+              Practiced by millions worldwide, Taekwondo develops strength, flexibility, coordination and self-confidence. It also teaches important values such as respect, discipline and perseverance.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div slot="bureau-content">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-bold mb-4">{t('federation.bureauTitle')}</h2>
+          <p class="text-lg text-muted-foreground">
+            {t('federation.bureauSubtitle')}
+          </p>
+        </div>
+
+        <div class="bg-background rounded-lg p-6 mb-8 border border-border">
+          <h3 class="text-xl font-semibold mb-4">{t('federation.president')}</h3>
+          <div class="grid gap-6 md:grid-cols-2">
+            {bureauFederal.map((membre) => (
+              <TeamMemberCard
+                nom={membre.nom}
+                poste={membre.poste}
+                region={membre.region}
+                experience={membre.experience}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div class="text-center">
+          <p class="text-muted-foreground mb-4">
+            {t('federation.contactSG')} <strong>77551985</strong>
+          </p>
+          <p class="text-muted-foreground">
+            Email: <strong>femat3@yahoo.fr</strong>
+          </p>
+        </div>
+      </div>
+
+      <div slot="documents-content">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-bold mb-4">{t('federation.rulesTitle')}</h2>
+          <p class="text-lg text-muted-foreground">
+            {t('federation.rulesSubtitle')}
+          </p>
+        </div>
+
+        <div class="bg-background rounded-lg p-6 mb-6 border border-border">
+          <h3 class="text-lg font-semibold mb-4">📋 Statutes and Rules</h3>
+          <p class="text-muted-foreground mb-4">
+            {t('federation.rulesSubtitle')}
+          </p>
+        </div>
+
+        <div class="flex gap-8">
+          <aside class="hidden lg:block">
+            <TableOfContents headings={headings} />
+          </aside>
+
+          <div class="flex-1 prose prose-lg max-w-none">
+            <Content />
+          </div>
+        </div>
+
+        <div class="mt-8 text-center">
+          <p class="text-muted-foreground">
+            {t('federation.rulesFooter')} <strong>femat3@yahoo.fr</strong>
+          </p>
+        </div>
+      </div>
+    </FederationTabs>
+
+  </div>
+</Layout>
